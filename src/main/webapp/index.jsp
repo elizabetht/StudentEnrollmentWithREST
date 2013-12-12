@@ -31,7 +31,7 @@ body {
 			<ul class="nav navbar-nav navbar-right">
 				<li class="active"><a href="#">Home</a></li>
 				<li><a href="webapi/studentResource/signup">Signup</a></li>
-				<li><a href="login.html">Login</a></li>
+				<li><a href="webapi/studentResource/login">Login</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Explore<b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -51,23 +51,21 @@ body {
 					us. Or login to access your details, if you are already enrolled.</p>
 			</div>
 
-			<a class="btn btn-primary" href="webapi/studentResource/signup">Signup » </a> <a
-				class="btn btn-primary" href="login.html">Login » </a>
+			<a class="btn btn-primary" href="webapi/studentResource/signup">Signup
+				» </a> <a class="btn btn-primary" href="webapi/studentResource/login">Login
+				» </a>
 		</div>
 
 		<div></div>
 	</div>
 	<script src="jquery-1.8.3.js">
-</script>
+		
+	</script>
 
 	<script src="bootstrap/js/bootstrap.js">
-</script>
+		
+	</script>
 
-	<h2>Jersey RESTful Web Application!</h2>
-	<p>
-		<a href="webapi/studentResource">Jersey resource</a>
-	<p>
-		Visit <a href="http://jersey.java.net">Project Jersey website</a> for
-		more information on Jersey!
+
 </body>
 </html>

@@ -17,11 +17,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 @Component
-@XmlRootElement
+@XmlRootElement(name="student")
 @Entity
 @Table(name="student")
 public class Student {
-
+	
 	@Id
 	@GeneratedValue
 	private Long id;
