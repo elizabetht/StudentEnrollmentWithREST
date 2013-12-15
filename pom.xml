@@ -5,7 +5,7 @@
 	<groupId>com.github.elizabetht</groupId>
 	<artifactId>StudentEnrollmentWithREST</artifactId>
 	<packaging>war</packaging>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<name>StudentEnrollmentWithREST</name>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -17,7 +17,8 @@
 		<connection>scm:git:git@github.com:elizabetht/StudentEnrollmentWithREST.git</connection>
 		<developerConnection>scm:git:git@github.com:elizabetht/StudentEnrollmentWithREST.git</developerConnection>
 		<url>git@github.com:elizabetht/StudentEnrollmentWithREST.git</url>
-	</scm>
+	  <tag>StudentEnrollmentWithREST-1.1</tag>
+  </scm>
 	<developers>
 		<developer>
 			<id>elizabetht</id>
