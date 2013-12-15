@@ -5,7 +5,7 @@
 	<groupId>com.github.elizabetht</groupId>
 	<artifactId>StudentEnrollmentWithREST</artifactId>
 	<packaging>war</packaging>
-	<version>1.1</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>StudentEnrollmentWithREST</name>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
