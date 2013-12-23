@@ -12,6 +12,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.glassfish.jersey.server.mvc.Viewable;
@@ -24,80 +26,83 @@ import com.github.elizabetht.service.StudentService;
 @Component
 @Path("studentResource")
 @XmlRootElement
-public class StudentResource {
-	
+public class StudentResource implements StudentResourceInterface {
+
 	@Autowired
 	private StudentService studentService;
-	
-	@GET	
-	@Produces(MediaType.TEXT_PLAIN)
-	public String start() {
-		if(studentService != null) {
-			return "StudentService: Not Null";
-		} else {
-			return "StudentService: Null";
-		}
-	}
-	
+
 	@GET
 	@Path("signup")
 	@Produces(MediaType.TEXT_HTML)
-	public Viewable signup() {			
-		return new Viewable("/signup");
+	public Response signup() {
+		return Response.ok(new Viewable("/signup")).build();
 	}
-		
+
 	@POST
 	@Path("signup")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_HTML)
-	public Viewable signup(@FormParam("userName") String userName,
+	public Response signup(@FormParam("userName") String userName,
 			@FormParam("password") String password,
 			@FormParam("firstName") String firstName,
 			@FormParam("lastName") String lastName,
 			@FormParam("dateOfBirth") String dateOfBirth,
-			@FormParam("emailAddress") String emailAddress) throws ParseException {
-		
+			@FormParam("emailAddress") String emailAddress)
+			throws ParseException {
+
+		if (userName == null || password == null || firstName == null
+				|| lastName == null || dateOfBirth == null
+				|| emailAddress == null) {
+			return Response.status(Status.PRECONDITION_FAILED).build();
+		}
+
 		Student student = new Student();
 		student.setUserName(userName);
 		student.setPassword(password);
 		student.setFirstName(firstName);
 		student.setLastName(lastName);
-		student.setDateOfBirth(new java.sql.Date(new SimpleDateFormat("MM/dd/yyyy")
-			.parse(dateOfBirth.substring(0, 10)).getTime()));
+
+		student.setDateOfBirth(new java.sql.Date(new SimpleDateFormat(
+				"MM/dd/yyyy").parse(dateOfBirth.substring(0, 10)).getTime()));
+
 		student.setEmailAddress(emailAddress);
-		
-		if(studentService.findByUserName(userName)) {
+
+		if (studentService.findByUserName(userName)) {
 			Map<String, Object> map = new HashMap<String, Object>();
-	        map.put("message", "User Name exists. Try another user name");
-	        map.put("student", student);
-			return new Viewable("/signup", map);
-			
+			map.put("message", "User Name exists. Try another user name");
+			map.put("student", student);
+			return Response.status(Status.BAD_REQUEST)
+					.entity(new Viewable("/signup", map)).build();
 		} else {
 			studentService.save(student);
-			return new Viewable("/login");
+			return Response.ok().entity(new Viewable("/login")).build();
 		}
 	}
-	
+
 	@GET
 	@Path("login")
 	@Produces(MediaType.TEXT_HTML)
-	public Viewable login() {			
-		return new Viewable("/login");
+	public Response login() {
+		return Response.ok(new Viewable("/login")).build();
 	}
-	
+
 	@POST
 	@Path("login")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_HTML)
-	public Viewable login(@FormParam("userName") String userName,
+	public Response login(@FormParam("userName") String userName,
 			@FormParam("password") String password) {
+
+		if (userName == null || password == null) {
+			return Response.status(Status.PRECONDITION_FAILED).build();
+		}
+
 		boolean found = studentService.findByLogin(userName, password);
-		if (found) {				
-			return new Viewable("/success");
-		} else {				
-			return new Viewable("/failure");
+		if (found) {
+			return Response.ok().entity(new Viewable("/success")).build();
+		} else {
+			return Response.status(Status.BAD_REQUEST)
+					.entity(new Viewable("/failure")).build();
 		}
 	}
-	
-	
 }

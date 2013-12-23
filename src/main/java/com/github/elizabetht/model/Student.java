@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @XmlRootElement(name="student")
 @Entity
 @Table(name="student")
-public class Student {
+public class Student implements StudentInterface {
 	
 	@Id
 	@GeneratedValue

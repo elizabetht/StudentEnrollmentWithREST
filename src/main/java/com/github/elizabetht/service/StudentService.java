@@ -1,9 +1,9 @@
 package com.github.elizabetht.service;
 
-import com.github.elizabetht.model.Student;
+import com.github.elizabetht.model.StudentInterface;
 
 public interface StudentService {
-	Student save(Student student);
+	StudentInterface save(StudentInterface student);
 	boolean findByLogin(String userName, String password);
 	boolean findByUserName(String userName);
 }
