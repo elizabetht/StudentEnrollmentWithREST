@@ -13,24 +13,27 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 public class StudentClientUnitTest {
 	private Mockery context;
 	private StudentClient studentClient;
+	private WebTarget target;
+	private Builder builder;
 
 	@Before
 	public void beforeEachTest() {
-
 		context = new Mockery();
 		studentClient = new StudentClient(
 				ClientBuilder
 						.newClient()
 						.target("http://localhost:8080/StudentEnrollmentWithREST/webapi/studentResource/"));
+		target = context.mock(WebTarget.class);
+		builder = context.mock(Builder.class);
 	}
 
 	@Test
 	public void getSignupTest() {
-		final WebTarget target = context.mock(WebTarget.class);
-		final Builder builder = context.mock(Builder.class);
 		studentClient = new StudentClient(target);
 
 		final Response response = Response.ok(new Viewable("/signup")).build();
@@ -45,15 +48,13 @@ public class StudentClientUnitTest {
 			}
 		});
 		studentClient.getSignup();
+		assertEquals(response.getStatus(), Status.OK.getStatusCode());
 
 		context.assertIsSatisfied();
 	}
 
 	@Test
 	public void postSignupTest() throws Exception {
-		final WebTarget target = context.mock(WebTarget.class);
-		final Builder builder = context.mock(Builder.class);
-
 		String userName = "jersey";
 		String password = "jersey";
 		String firstName = "jersey";
@@ -75,15 +76,13 @@ public class StudentClientUnitTest {
 		});
 		studentClient.postSignup(userName, password, firstName, lastName,
 				dateOfBirth, emailAddress);
+		assertEquals(response.getStatus(), Status.OK.getStatusCode());
 
 		context.assertIsSatisfied();
 	}
 
 	@Test(expected = Exception.class)
 	public void postSignupInvalidDateFormatTest() throws Exception {
-		final WebTarget target = context.mock(WebTarget.class);
-		final Builder builder = context.mock(Builder.class);
-
 		String userName = "jersey";
 		String password = "jersey";
 		String firstName = "jersey";
@@ -106,15 +105,13 @@ public class StudentClientUnitTest {
 		});
 		studentClient.postSignup(userName, password, firstName, lastName,
 				dateOfBirth, emailAddress);
+		assertEquals(response.getStatus(), Status.PRECONDITION_FAILED.getStatusCode());
 
 		context.assertIsSatisfied();
 	}
 
 	@Test(expected = Exception.class)
 	public void postSignupBadRequestTest() throws Exception {
-		final WebTarget target = context.mock(WebTarget.class);
-		final Builder builder = context.mock(Builder.class);
-
 		String userName = null;
 		String password = null;
 		String firstName = null;
@@ -137,15 +134,13 @@ public class StudentClientUnitTest {
 		});
 		studentClient.postSignup(userName, password, firstName, lastName,
 				dateOfBirth, emailAddress);
+		assertEquals(response.getStatus(), Status.PRECONDITION_FAILED.getStatusCode());
 
 		context.assertIsSatisfied();
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void postSignupExistingUserTest() throws Exception {
-		final WebTarget target = context.mock(WebTarget.class);
-		final Builder builder = context.mock(Builder.class);
-
 		String userName = "jersey";
 		String password = "jersey";
 		String firstName = "jersey";
@@ -167,14 +162,13 @@ public class StudentClientUnitTest {
 		});
 		studentClient.postSignup(userName, password, firstName, lastName,
 				dateOfBirth, emailAddress);
+		assertEquals(response.getStatus(), Status.BAD_REQUEST.getStatusCode());
 
 		context.assertIsSatisfied();
 	}
 
 	@Test
 	public void getLoginTest() {
-		final WebTarget target = context.mock(WebTarget.class);
-		final Builder builder = context.mock(Builder.class);
 		studentClient = new StudentClient(target);
 
 		final Response response = Response.ok(new Viewable("/login")).build();
@@ -189,15 +183,13 @@ public class StudentClientUnitTest {
 			}
 		});
 		studentClient.getLogin();
+		assertEquals(response.getStatus(), Status.OK.getStatusCode());
 
 		context.assertIsSatisfied();
 	}
 
 	@Test
 	public void postLoginTest() {
-		final WebTarget target = context.mock(WebTarget.class);
-		final Builder builder = context.mock(Builder.class);
-
 		String userName = "jersey";
 		String password = "jersey";
 		studentClient = new StudentClient(target);
@@ -214,15 +206,13 @@ public class StudentClientUnitTest {
 			}
 		});
 		studentClient.postLogin(userName, password);
+		assertEquals(response.getStatus(), Status.OK.getStatusCode());
 
 		context.assertIsSatisfied();
 	}
 	
 	@Test(expected=RuntimeException.class)
 	public void postLoginInvalidTest() {
-		final WebTarget target = context.mock(WebTarget.class);
-		final Builder builder = context.mock(Builder.class);
-
 		String userName = "jersey";
 		String password = "jersey123";
 		studentClient = new StudentClient(target);
@@ -239,15 +229,13 @@ public class StudentClientUnitTest {
 			}
 		});
 		studentClient.postLogin(userName, password);
+		assertEquals(response.getStatus(), Status.BAD_REQUEST.getStatusCode());
 
 		context.assertIsSatisfied();
 	}
 	
 	@Test(expected=RuntimeException.class)
 	public void postLoginBadRequestTest() {
-		final WebTarget target = context.mock(WebTarget.class);
-		final Builder builder = context.mock(Builder.class);
-
 		String userName = null;
 		String password = null;
 		studentClient = new StudentClient(target);
@@ -264,6 +252,7 @@ public class StudentClientUnitTest {
 			}
 		});
 		studentClient.postLogin(userName, password);
+		assertEquals(response.getStatus(), Status.PRECONDITION_FAILED.getStatusCode());
 
 		context.assertIsSatisfied();
 	}
