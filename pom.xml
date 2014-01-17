@@ -41,6 +41,20 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -55,9 +69,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-
-					
+			</plugin>					
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
