@@ -109,7 +109,7 @@
 						<tagBase>https://github.com/elizabetht/StudentEnrollmentWithREST/tags</tagBase>
 						<mavenExecutorId>forked-path</mavenExecutorId>
 						<useReleaseProfile>false</useReleaseProfile>
-						<arguments>${arguments} -Psonatype-oss-release</arguments>
+						<arguments>-Psonatype-oss-release</arguments>
 					</configuration>
 				</plugin>
 			</plugins>
