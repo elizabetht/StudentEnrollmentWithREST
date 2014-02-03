@@ -15,9 +15,9 @@
 	</parent>
 
 	<scm>
-		<connection>scm:git:git://github.com/elizabetht/StudentEnrollmentWithREST.git</connection>
+		<connection>scm:git:git@github.com:elizabetht/StudentEnrollmentWithREST.git</connection>
 		<developerConnection>scm:git:git@github.com:elizabetht/StudentEnrollmentWithREST.git</developerConnection>
-		<url>http://github.com/elizabetht/StudentEnrollmentWithREST</url>			
+		<url>git@github.com:elizabetht/StudentEnrollmentWithREST.git</url>			
 	</scm>
 	<developers>
 		<developer>
