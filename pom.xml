@@ -16,7 +16,7 @@
 	<scm>
 		<connection>scm:git:git@github.com:elizabetht/StudentEnrollmentWithREST.git</connection>
 		<developerConnection>scm:git:git@github.com:elizabetht/StudentEnrollmentWithREST.git</developerConnection>
-		<url>https://github.com/elizabetht/StudentEnrollmentWithREST</url>			
+		<url>http://github.com/elizabetht/StudentEnrollmentWithREST</url>			
 	</scm>
 	<developers>
 		<developer>
